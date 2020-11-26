@@ -59,10 +59,10 @@ func (idb *InDB) CreatePerson(c *gin.Context) {
 		person structs.Person
 		result gin.H
 	)
-	nama_pertama := c.PostForm("nama_pertama")
-	nama_belakang := c.PostForm("nama_belakang")
-	person.First_Name = nama_pertama
-	person.Last_Name = nama_belakang
+	first_name := c.PostForm("first_name")
+	last_name := c.PostForm("last_name")
+	person.First_Name = first_name
+	person.Last_Name = last_name
 	idb.DB.Create(&person)
 	result = gin.H{
 		"result": person,
@@ -73,8 +73,8 @@ func (idb *InDB) CreatePerson(c *gin.Context) {
 // update data dari {id} query
 func (idb *InDB) UpdatePerson(c *gin.Context) {
 	id := c.Query("id")
-	nama_pertama := c.PostForm("nama_pertama")
-	nama_belakang := c.PostForm("nama_belakang")
+	first_name := c.PostForm("first_name")
+	last_name := c.PostForm("last_name")
 	var (
 		person    structs.Person
 		newPerson structs.Person
@@ -87,8 +87,8 @@ func (idb *InDB) UpdatePerson(c *gin.Context) {
 			"result": "data tidak ditemukan",
 		}
 	}
-	newPerson.First_Name = nama_pertama
-	newPerson.Last_Name = nama_belakang
+	newPerson.First_Name = first_name
+	newPerson.Last_Name = last_name
 	err = idb.DB.Model(&person).Updates(newPerson).Error
 	if err != nil {
 		result = gin.H{
